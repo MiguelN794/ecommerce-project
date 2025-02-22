@@ -1,17 +1,21 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import ThemeToggle from './ThemeToggle';
 
 const HeaderContainer = styled.header`
-  background-color: hsl(0, 0%, 100%);
+  background-color: var(--bg-color);
   padding: 1.5rem 2rem;
-  border-bottom: 1px solid hsl(220, 14%, 75%);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: background-color 0.3s ease;
 `;
 
 const Logo = styled.img`
   height: 1.5rem;
+  filter: ${props => props.isDark ? 'brightness(0) invert(1)' : 'none'};
+  transition: filter 0.3s ease;
 `;
 
 const Nav = styled.nav`
@@ -66,11 +70,11 @@ const Avatar = styled.img`
   }
 `;
 
-function Header() {
+function Header({ isDark, toggleTheme }) {
     return (
         <HeaderContainer>
             <Nav>
-                <Logo src="/images/logo.svg" alt="sneakers" />
+                <Logo src="/images/logo.svg" alt="sneakers" isDark={isDark} />
                 <NavLink href="#">Collections</NavLink>
                 <NavLink href="#">Men</NavLink>
                 <NavLink href="#">Women</NavLink>
@@ -78,6 +82,7 @@ function Header() {
                 <NavLink href="#">Contact</NavLink>
             </Nav>
             <RightSection>
+                <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
                 <CartButton>
                     <img src="/images/icon-cart.svg" alt="cart" />
                 </CartButton>
